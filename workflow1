@@ -1,0 +1,26 @@
+name: Clean and Train ML Model
+
+on:
+  workflow_dispatch:
+
+jobs:
+  ml-pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: pip install pandas scikit-learn joblib
+
+      - name: Clean Data
+        run: python ModelCleaning/cleandata.py
+
+      - name: Train and Test Model
+        run: python ModelCleaning/train_test_dataset.py
